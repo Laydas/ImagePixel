@@ -5,4 +5,7 @@
     <string name="label_pixelate">PIXELATION</string>
     <string name="btn_load">Pick Image</string>
     <string name="btn_send">Send</string>
+    <string name="btn_bluetooth">Connect</string>
+    <string name="text_paired">Paired Devices</string>
+    <string name="btn_paired">Paired Devices</string>
 </resources>
