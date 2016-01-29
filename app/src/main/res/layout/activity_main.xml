@@ -1,0 +1,60 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_pixelate"
+        android:onClick="pixelate"
+        android:id="@+id/button"
+        android:textSize="50sp"
+        android:layout_marginBottom="80dp"
+        android:layout_gravity="center|bottom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textSize="50sp"
+        android:text="@string/label_pixelate"
+        android:textColor="#232323"
+        android:layout_gravity="center_horizontal|top" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/imageView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="45dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:text="@string/btn_send"
+        android:id="@+id/btn_send"
+        android:onClick="bluetoothSend"
+        android:layout_gravity="right|bottom"
+        android:textSize="35sp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:text="@string/btn_load"
+        android:id="@+id/btn_load"
+        android:textSize="35sp"
+        android:onClick="loadImagefromGallery"
+        android:layout_gravity="left|bottom" />
+
+</FrameLayout>

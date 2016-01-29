@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ImagePixel</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_pixelate">Pixel</string>
+    <string name="label_pixelate">PIXELATION</string>
+    <string name="btn_load">Pick Image</string>
+    <string name="btn_send">Send</string>
+</resources>
