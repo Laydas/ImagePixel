@@ -13,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -73,14 +74,14 @@ public class MainActivity extends AppCompatActivity {
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //connect to devices
+                //testSend();
             }
         });
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Send to device
+                sendImage();
             }
         });
     }
@@ -112,12 +113,25 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void sendImage(){
-        if (btSocket!=null) {
+
+    private void sendImage() {
+
+        Handler h = new Handler();
+        final Handler handler = new Handler();
+
+        if (btSocket != null) {
             try {
-                btSocket.getOutputStream().write("TO".toString().getBytes());
+                btSocket.getOutputStream().write("!!!".toString().getBytes());
+                for (int j = 0; j < 16; j++) {
+                    for (int i = 0; i < 32; i++) {
+                        Log.v("TEST", "X" + blueSend[i][j]);
+                        btSocket.getOutputStream().write(blueSend[i][j].getBytes());
+                    }
+                }
+                try {Thread.sleep(25); }catch (InterruptedException e) {msg("Error");}
+                btSocket.getOutputStream().write("~".toString().getBytes());
             } catch (IOException e) {
-                msg("Error");
+            msg("Error");
             }
         }
     }
@@ -153,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 // Set the image in imageview after decoding the string
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
             } else {
-                Toast.makeText(this, "You haven't pick Image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "You haven't picked an Image", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
@@ -165,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // The function that pixelates the images
     public void pixelate(View view){
         // Get the bitmap
         operation= Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(),bmp.getConfig());
@@ -179,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
                 int rAverage = 0;
                 int gAverage = 0;
                 int bAverage = 0;
-                int aAverage = 0;
 
                 // Step through all the pixels inside one block and add all color values together
                 for(int x = i * 12; x < (i * 12) + 11 ; x++) {
@@ -188,17 +200,22 @@ public class MainActivity extends AppCompatActivity {
                         rAverage += Color.red(p);
                         gAverage += Color.green(p);
                         bAverage += Color.blue(p);
-                        aAverage += Color.alpha(p);
                     }
                 }
 
-                // Divide all the colour values by the number of pixels in a block
-                rAverage = rAverage / 144;
-                bAverage = bAverage / 144;
-                gAverage = gAverage / 144;
+                // Turn the colour into a hex string.
+                String rSend = Integer.toHexString(rAverage /= 144);
+                String gSend = Integer.toHexString(gAverage /= 144);
+                String bSend = Integer.toHexString(bAverage /= 144);
+
+                // Kill off the 2nd hex character if present
+                rSend = rSend.substring(0,1);
+                bSend = bSend.substring(0,1);
+                gSend = gSend.substring(0,1);
 
                 // Assign the colors into a string array !!RED:GREEN:BLUE~
-                String sendString = "!!" + i + ":" + j + ":" + rAverage + ":" + gAverage + ":" + bAverage + "~";
+                //String sendString = "" + jSend + "" + iSend + "" + rSend + "" + gSend + "" + bSend;
+                String sendString = rSend + "" + gSend + "" + bSend;
                 blueSend[i][j] = sendString;
 
                 // Write the average color values to each pixel in the block
@@ -212,10 +229,6 @@ public class MainActivity extends AppCompatActivity {
         // Push image back to the screen
         im.setImageBitmap(operation);
     } // END pixelate function
-
-    public void bluetoothSend(View view) {
-        Log.v("TESTING", "SEND TEST: " + blueSend[0][0] + "~~" + blueSend[0][1]);
-    }
 
     private class ConnectBT extends AsyncTask<Void, Void, Void> {
         private boolean ConnectSuccess = true;
