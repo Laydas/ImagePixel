@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 btSocket.getOutputStream().write("!!!".toString().getBytes());
                 for (int j = 0; j < 16; j++) {
                     for (int i = 0; i < 32; i++) {
-                        Log.v("TEST", "X" + blueSend[i][j]);
                         btSocket.getOutputStream().write(blueSend[i][j].getBytes());
                     }
                 }
@@ -209,9 +208,21 @@ public class MainActivity extends AppCompatActivity {
                 String bSend = Integer.toHexString(bAverage /= 144);
 
                 // Kill off the 2nd hex character if present
-                rSend = rSend.substring(0,1);
-                bSend = bSend.substring(0,1);
-                gSend = gSend.substring(0,1);
+                if(rSend.length()== 2) {
+                    rSend = rSend.substring(0, 1);
+                } else {
+                    rSend = "0";
+                }
+                if(bSend.length() == 2) {
+                    bSend = bSend.substring(0,1);
+                } else {
+                    bSend = "0";
+                }
+                if(gSend.length() == 2) {
+                    gSend = gSend.substring(0, 1);
+                } else {
+                    gSend = "0";
+                }
 
                 // Assign the colors into a string array !!RED:GREEN:BLUE~
                 //String sendString = "" + jSend + "" + iSend + "" + rSend + "" + gSend + "" + bSend;
