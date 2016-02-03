@@ -223,9 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     gSend = "0";
                 }
-
-                // Assign the colors into a string array !!RED:GREEN:BLUE~
-                //String sendString = "" + jSend + "" + iSend + "" + rSend + "" + gSend + "" + bSend;
+                
                 String sendString = rSend + "" + gSend + "" + bSend;
                 blueSend[i][j] = sendString;
 

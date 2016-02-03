@@ -6,9 +6,23 @@ This Android App helps you pixelate images and then send them over bluetooth to 
 
 Upcoming fixes
 - UI layout improvement
--- Remove useless buttons
--- graphical change
--- load pixel screen before bluetooth choice screen
+	Remove useless buttons
+	graphical change
+	load pixel screen before bluetooth choice screen
+
+Version 0.3
+
+Changes
+- Fixed offset matrix display and first pixel showing as white
+- Added comments into BluetoothPixelImage.ino
+- Updated manifest so rotation no longer breaks application
+- Removed 2 lines of comment from MainActivity.js
+
+Current problems
+
+- Not enough comments in Android side of application	
+
+
 
 Version 0.2
 

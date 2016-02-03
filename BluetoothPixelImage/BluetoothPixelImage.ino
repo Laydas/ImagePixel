@@ -55,7 +55,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 4, 2, LEDPIN,
 // DECLARE VARIABLES
 //--------------------------------------------------------------------------
 // initialize the bluetooth string for holding the incoming buffer
-String blStr;
+String blStr = "";
 //--------------------------------------------------------------------------
 
 
@@ -117,22 +117,21 @@ void loop ()
 
   // Check to see if the string has been properly formatted as such ("!!!" + data + "~")
   if(blStr[0] == '!' && blStr[1] == '!' && blStr[2] == '!' && blStr[blStr.length() -1] == '~'){
+    matrix.fillScreen(0);
     // Initialize the color variables that will be used for drawing to the board
-    int red = 0;
-    int green = 0;
-    int blue = 0;
     // Initialize the finder to parse through the buffer
     int finder = 0;
     // Step into a 2D array to more easily assign the correct pixels
-    for(int i = 0; i < 32; i++) {
-      for(int j = 0; j < 16; j++) {
-        // Get the current pixels appropriate RGB code
-        finder = ((32 * j) + i) * 3;
 
+    for(int j = 0; j < 16; j++) {
+        for(int i = 0; i < 32; i++) {
+        // Get the current pixels appropriate RGB code
+        finder = (((32 * j) + (i+1)) * 3);
+        
         // Pass the single hex char through the char2int function then into the color variables
-        red = char2int(blStr[finder]);
-        green = char2int(blStr[finder+1]);
-        blue = char2int(blStr[finder+2]);
+        int red = char2int(blStr[finder]);
+        int green = char2int(blStr[finder+1]);
+        int blue = char2int(blStr[finder+2]);
         // As of now red will contain a single int from 0-15
 
         // Take the single int and turn it into a simplified 0-255 color value
