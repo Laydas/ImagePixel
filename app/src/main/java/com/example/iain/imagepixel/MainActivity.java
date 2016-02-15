@@ -245,6 +245,10 @@ public class MainActivity extends AppCompatActivity {
                     gSend = "0";
                 }
 
+                if(aAverage == 0) {
+                    rSend = "N";
+                }
+
                 String sendString = rSend + "" + gSend + "" + bSend;
                 blueSend[i][j] = sendString;
 
