@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 int rAverage = 0;
                 int gAverage = 0;
                 int bAverage = 0;
+                int aAverage = 0;
 
                 // Step through all the pixels inside one block and add all color values together
                 for(int x = i * 12; x < (i * 12) + 11 ; x++) {
@@ -217,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                         rAverage += Color.red(p);
                         gAverage += Color.green(p);
                         bAverage += Color.blue(p);
+                        aAverage += Color.alpha(p);
                     }
                 }
 
@@ -224,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 String rSend = Integer.toHexString(rAverage /= 144);
                 String gSend = Integer.toHexString(gAverage /= 144);
                 String bSend = Integer.toHexString(bAverage /= 144);
+                aAverage /= 144;
 
                 // Kill off the 2nd hex character if present
                 if(rSend.length()== 2) {
@@ -241,6 +244,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     gSend = "0";
                 }
+<<<<<<< HEAD
+=======
+                // if aAverage is 0 (invisible) then assign N to rSend
+                if(aAverage == 0){
+                    rSend = "N";
+                }
+>>>>>>> animation
 
                 String sendString = rSend + "" + gSend + "" + bSend;
                 blueSend[i][j] = sendString;
