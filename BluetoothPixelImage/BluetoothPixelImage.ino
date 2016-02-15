@@ -130,10 +130,7 @@ void loop ()
 
         // Check to see if the alpha was 0 or not
         if(blStr[finder] == 'N'){
-          int red = 100;
-          int green = 100;
-          int blue = 100;
-          matrix.drawPixel(i,j,matrix.Color(red,green,blue));
+          // do something
         }
         // If the colour was set then pass that information into the matrix array
         else {
