@@ -127,20 +127,31 @@ void loop ()
         for(int i = 0; i < 32; i++) {
         // Get the current pixels appropriate RGB code
         finder = (((32 * j) + (i+1)) * 3);
+
+        // Check to see if the alpha was 0 or not
+        if(blStr[finder] == 'N'){
+          int red = 100;
+          int green = 100;
+          int blue = 100;
+          matrix.drawPixel(i,j,matrix.Color(red,green,blue));
+        }
+        // If the colour was set then pass that information into the matrix array
+        else {
+          // Pass the single hex char through the char2int function then into the color variables
+          int red = char2int(blStr[finder]);
+          int green = char2int(blStr[finder+1]);
+          int blue = char2int(blStr[finder+2]);
+          // As of now red will contain a single int from 0-15
+  
+          // Take the single int and turn it into a simplified 0-255 color value
+          red = (red * 16) + red;
+          green = (green * 16) + green;
+          blue = (blue * 16) + blue;
+          
+          // Draw the current location(i,j) to the LED board with the current colours
+          matrix.drawPixel(i,j,matrix.Color(red,green,blue));
+        }
         
-        // Pass the single hex char through the char2int function then into the color variables
-        int red = char2int(blStr[finder]);
-        int green = char2int(blStr[finder+1]);
-        int blue = char2int(blStr[finder+2]);
-        // As of now red will contain a single int from 0-15
-
-        // Take the single int and turn it into a simplified 0-255 color value
-        red = (red * 16) + red;
-        green = (green * 16) + green;
-        blue = (blue * 16) + blue;
-
-        // Draw the current location(i,j) to the LED board with the current colours
-        matrix.drawPixel(i,j,matrix.Color(red,green,blue));
       }
     }
 
