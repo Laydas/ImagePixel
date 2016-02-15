@@ -244,13 +244,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     gSend = "0";
                 }
-<<<<<<< HEAD
-=======
-                // if aAverage is 0 (invisible) then assign N to rSend
-                if(aAverage == 0){
-                    rSend = "N";
-                }
->>>>>>> animation
 
                 String sendString = rSend + "" + gSend + "" + bSend;
                 blueSend[i][j] = sendString;
