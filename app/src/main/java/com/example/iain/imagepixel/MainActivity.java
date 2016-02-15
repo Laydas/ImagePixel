@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap operation;
 
     // BLUETOOTH SECTION
-    Button btnSend, btnConnect;
+    Button btnSend, btnConnect, btnPixel, btnLoad;
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
@@ -68,13 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
         btnConnect = (Button) findViewById(R.id.btn_bluetooth);
         btnSend = (Button) findViewById(R.id.btn_send);
+        btnPixel = (Button) findViewById(R.id.btn_pixel);
+        btnLoad = (Button) findViewById(R.id.btn_load);
 
         new ConnectBT().execute();
 
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //testSend();
+                startActivity(new Intent(MainActivity.this, DeviceList.class));
             }
         });
 
@@ -84,6 +86,22 @@ public class MainActivity extends AppCompatActivity {
                 sendImage();
             }
         });
+
+        btnLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadImagefromGallery();
+            }
+        });
+
+        btnPixel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pixelate();
+            }
+        });
+
+
     }
 
     @Override
@@ -130,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 try {Thread.sleep(25); }catch (InterruptedException e) {msg("Error");}
                 btSocket.getOutputStream().write("~".toString().getBytes());
             } catch (IOException e) {
-            msg("Error");
+                msg("Error");
             }
         }
     }
@@ -139,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
-    public void loadImagefromGallery(View view) {
+    private void loadImagefromGallery() {
         // Create intent to open image applications like Galler, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the intent
@@ -178,10 +196,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void pixelate(View view){
+    private void pixelate(){
         // Get the bitmap
         operation= Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(),bmp.getConfig());
-                // Figure out how many pixels wide by tall it is
+        // Figure out how many pixels wide by tall it is
         // 12x12 is the number of pixels
 
         // Step through each block of pixels so the steps are 32 horizontal by 16 vertical
@@ -223,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     gSend = "0";
                 }
-                
+
                 String sendString = rSend + "" + gSend + "" + bSend;
                 blueSend[i][j] = sendString;
 

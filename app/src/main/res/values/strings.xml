@@ -8,4 +8,5 @@
     <string name="btn_bluetooth">Connect</string>
     <string name="text_paired">Paired Devices</string>
     <string name="btn_paired">Paired Devices</string>
+    <string name="btn_tomain">To Main</string>
 </resources>
