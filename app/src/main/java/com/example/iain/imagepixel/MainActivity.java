@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         btnWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendWord();
+                startActivity(new Intent(MainActivity.this, SendWord.class));
             }
         });
     }
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void sendWord() {
+    /*private void sendWord() {
         final EditText edit = (EditText) findViewById(R.id.wordText);
         if(btSocket != null) {
             try {
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 msg("Error");
             }
         }
-    }
+    }*/
 
     private void msg(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
