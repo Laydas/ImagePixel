@@ -11,4 +11,9 @@
     <string name="btn_tomain">To Main</string>
     <string name="btn_word">Word</string>
     <string name="title_activity_send_word">SendWord</string>
+    <string name="btn_color">Colour</string>
+    <string name="str_TEXT">TEXT</string>
+    <string name="str_COLOUR">COLOUR</string>
+    <string name="str_REPETITIONS">REPETITIONS</string>
+    <string name="str_SPEED">SPEED</string>
 </resources>

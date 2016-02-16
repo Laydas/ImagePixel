@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,29 +8,95 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.iain.imagepixel.SendWord">
 
-    <SeekBar
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekSpeed"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textSpeed"
-        android:layout_above="@+id/seekSpeed"
-        android:layout_alignLeft="@+id/seekSpeed"
-        android:layout_alignRight="@+id/seekSpeed"
-        android:gravity="center"/>
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mainWord"
+                android:layout_marginTop="67dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_TEXT"
+                android:textSize="90sp"
+                android:textStyle="bold"
+                android:textColor="#3b000000"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textTEXT"
+                android:layout_marginTop="35dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <SeekBar
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekSpeed"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="130dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_SPEED"
+                android:textColor="#3b000000"
+                android:textSize="90sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textSPEED"
+                android:layout_marginTop="50dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textSpeed"
+                android:text="0"
+                android:textSize="175sp"
+                android:textStyle="bold"
+                android:textColor="#3b000000"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:id="@+id/btn_Color"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:alpha="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_COLOUR"
+                android:textSize="90sp"
+                android:textStyle="bold"
+                android:textColor="#3b000000"
+                android:id="@+id/textCOLOUR"
+                android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_send"
+            android:id="@+id/btn_sendWord"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textSize="35sp" />
+
+</LinearLayout>
