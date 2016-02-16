@@ -56,6 +56,12 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 4, 2, LEDPIN,
 //--------------------------------------------------------------------------
 // initialize the bluetooth string for holding the incoming buffer
 String blStr = "";
+boolean wordSet = false;
+String stringShow;
+unsigned long wordScrollTime = 0;
+int delayInMillis = 200;
+int wordLength = 0;
+int scrollX = 0;
 //--------------------------------------------------------------------------
 
 
@@ -74,6 +80,7 @@ void setup()
   matrix.setTextWrap(false);
   // Max brightness is 255, I suggest setting the brightness at around 100 unless you have a lot of amps
   matrix.setBrightness(150);
+  matrix.setTextColor(matrix.Color(255,0,0)); 
 }
 //--------------------------------------------------------------------------
 
@@ -112,9 +119,20 @@ void loop ()
     while(Serial2.available()){
       char ch = Serial2.read();
       blStr += (ch);
+      //Serial.println(ch);
     }
   }//----------------------------------------------------------------------
 
+  // This section is for words sent from the phone not images
+  if(blStr[0] == '!' && blStr[1] == '~' && blStr[2] == '!' && blStr[blStr.length() -1] == '~') {
+    stringShow = blStr.substring(3,blStr.length()-1);   
+    wordSet = true;
+    blStr = "";
+    wordLength = stringShow.length() * 6;
+    scrollX = 31;
+  }
+
+  // This is the section for incoming images
   // Check to see if the string has been properly formatted as such ("!!!" + data + "~")
   if(blStr[0] == '!' && blStr[1] == '!' && blStr[2] == '!' && blStr[blStr.length() -1] == '~'){
     matrix.fillScreen(0);
@@ -148,13 +166,27 @@ void loop ()
           // Draw the current location(i,j) to the LED board with the current colours
           matrix.drawPixel(i,j,matrix.Color(red,green,blue));
         }
-        
       }
     }
-
     // Clear out the buffer as we are done with it
     blStr = "";
+    wordSet = false;
     // Update the board to show all the new LED colours
     matrix.show();
+  }
+
+  // Every 1000 ms check to see if the wordset is true and then show the word
+  if(millis() - wordScrollTime >= delayInMillis) {
+    if(wordSet == true){
+      matrix.setCursor(scrollX, 0);
+      matrix.fillScreen(0);
+      matrix.print(stringShow);
+      matrix.show();
+      scrollX --;
+      if(scrollX + wordLength == 0){
+        wordSet = false;
+      }
+    }
+    wordScrollTime = millis();
   }
 }

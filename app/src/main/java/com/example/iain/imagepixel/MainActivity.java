@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap operation;
 
     // BLUETOOTH SECTION
-    Button btnSend, btnConnect, btnPixel, btnLoad;
+    Button btnSend, btnConnect, btnPixel, btnLoad, btnWord;
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         btnSend = (Button) findViewById(R.id.btn_send);
         btnPixel = (Button) findViewById(R.id.btn_pixel);
         btnLoad = (Button) findViewById(R.id.btn_load);
+        btnWord = (Button) findViewById(R.id.btn_word);
 
         new ConnectBT().execute();
 
@@ -101,7 +103,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        btnWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendWord();
+            }
+        });
     }
 
     @Override
@@ -145,6 +152,20 @@ public class MainActivity extends AppCompatActivity {
                         btSocket.getOutputStream().write(blueSend[i][j].getBytes());
                     }
                 }
+                try {Thread.sleep(25); }catch (InterruptedException e) {msg("Error");}
+                btSocket.getOutputStream().write("~".toString().getBytes());
+            } catch (IOException e) {
+                msg("Error");
+            }
+        }
+    }
+
+    private void sendWord() {
+        final EditText edit = (EditText) findViewById(R.id.wordText);
+        if(btSocket != null) {
+            try {
+                btSocket.getOutputStream().write("!~!".toString().getBytes());
+                btSocket.getOutputStream().write(edit.getText().toString().getBytes());
                 try {Thread.sleep(25); }catch (InterruptedException e) {msg("Error");}
                 btSocket.getOutputStream().write("~".toString().getBytes());
             } catch (IOException e) {
