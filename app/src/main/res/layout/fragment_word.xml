@@ -1,25 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.iain.imagepixel.SendWord">
+    tools:context=".PixelFragment"
+    android:background="#e1e1e1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="">
 
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/mainWord"
-                android:layout_marginTop="67dp"
+                android:layout_marginTop="10dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="50dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -27,28 +33,31 @@
                 android:text="@string/str_TEXT"
                 android:textSize="90sp"
                 android:textStyle="bold"
-                android:textColor="#3b000000"
+                android:textColor="#21000000"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/textTEXT"
-                android:layout_marginTop="35dp"/>
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="200dp">
 
             <SeekBar
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/seekSpeed"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="130dp" />
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_SPEED"
-                android:textColor="#3b000000"
+                android:textColor="#21000000"
                 android:textSize="90sp"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
@@ -61,14 +70,14 @@
                 android:text="0"
                 android:textSize="175sp"
                 android:textStyle="bold"
-                android:textColor="#3b000000"
+                android:textColor="#21000000"
                 android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <Button
                 android:layout_width="match_parent"
@@ -84,11 +93,11 @@
                 android:text="@string/str_COLOUR"
                 android:textSize="90sp"
                 android:textStyle="bold"
-                android:textColor="#3b000000"
+                android:textColor="#21000000"
                 android:id="@+id/textCOLOUR"
                 android:layout_centerHorizontal="true" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
         <Button
             android:layout_width="fill_parent"
@@ -98,5 +107,5 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:textSize="35sp" />
-
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

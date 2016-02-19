@@ -1,4 +1,4 @@
-package com.example.iain.imagepixel;
+package com.example.iain.myapplication;
 
 import org.junit.Test;
 

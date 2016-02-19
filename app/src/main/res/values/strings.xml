@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">ImagePixel</string>
     <string name="action_settings">Settings</string>
+    <string name="action_toword">Word</string>
+    <string name="action_toimage">Image</string>
+    <string name="str_wordFrag">WORD FRAGMENT</string>
+    <string name="str_pixelFrag">PIXEL FRAGMENT</string>
+    <string name="app_name">ImagePixel</string>
     <string name="btn_pixelate">Pixel</string>
     <string name="label_pixelate">PIXELATION</string>
     <string name="btn_load">Pick Image</string>
@@ -16,4 +20,5 @@
     <string name="str_COLOUR">COLOUR</string>
     <string name="str_REPETITIONS">REPETITIONS</string>
     <string name="str_SPEED">SPEED</string>
+    <string name="action_bluetooth">Connect</string>
 </resources>
