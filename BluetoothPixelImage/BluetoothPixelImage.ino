@@ -61,7 +61,7 @@ String stringWord;
 int red, green, blue;
 int scrollSpeed;
 unsigned long wordScrollTime = 0;
-int delayInMillis = 200;
+int delayInMillis;
 int wordLength = 0;
 int scrollX = 0;
 //--------------------------------------------------------------------------
@@ -123,6 +123,7 @@ void loop ()
       blStr += (ch);
       //Serial.println(ch);
     }
+  wordSet = false;
   }//----------------------------------------------------------------------
 
   // This section is for words sent from the phone not images
@@ -132,7 +133,7 @@ void loop ()
     red = blStr.substring(7,10).toInt();
     green = blStr.substring(10,13).toInt();
     blue = blStr.substring(13,16).toInt();
-    
+    delayInMillis = scrollSpeed;
     
     wordSet = true;
     blStr = "";
@@ -144,6 +145,7 @@ void loop ()
   // This is the section for incoming images
   // Check to see if the string has been properly formatted as such ("!!!" + data + "~")
   if(blStr[0] == '!' && blStr[1] == '!' && blStr[2] == '!' && blStr[blStr.length() -1] == '~'){
+    delay(25);
     matrix.fillScreen(0);
     // Initialize the color variables that will be used for drawing to the board
     // Initialize the finder to parse through the buffer
@@ -179,23 +181,22 @@ void loop ()
     }
     // Clear out the buffer as we are done with it
     blStr = "";
-    wordSet = false;
     // Update the board to show all the new LED colours
     matrix.show();
   }
 
   // Every 1000 ms check to see if the wordset is true and then show the word
-  if(millis() - wordScrollTime >= delayInMillis) {
-    if(wordSet == true){
-      matrix.setCursor(scrollX, 0);
+  if(wordSet == true){
+    if(millis() - wordScrollTime >= delayInMillis) {
+      matrix.setCursor(scrollX, 5);
       matrix.fillScreen(0);
       matrix.print(stringWord);
       matrix.show();
       scrollX --;
       if(scrollX + wordLength == 0){
-        wordSet = false;
+        scrollX = 31;
       }
+      wordScrollTime = millis();
     }
-    wordScrollTime = millis();
   }
 }

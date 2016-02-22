@@ -39,6 +39,7 @@ public class WordFragment extends Fragment{
 
         textSpeed.setText("1");
         seekSpeed.setMax(49);
+        speedSend = "1000";
 
         seekSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

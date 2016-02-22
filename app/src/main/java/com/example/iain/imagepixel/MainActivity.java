@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     sendColor += "" + colorGreen;
                 }
-                if(colorBlue < 10) {
+                if (colorBlue < 10) {
                     sendColor += "00" + colorBlue;
                 } else if (colorBlue < 100) {
                     sendColor += "0" + colorBlue;
