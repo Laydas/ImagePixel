@@ -57,7 +57,9 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, 4, 2, LEDPIN,
 // initialize the bluetooth string for holding the incoming buffer
 String blStr = "";
 boolean wordSet = false;
-String stringShow;
+String stringWord;
+int red, green, blue;
+int scrollSpeed;
 unsigned long wordScrollTime = 0;
 int delayInMillis = 200;
 int wordLength = 0;
@@ -125,11 +127,18 @@ void loop ()
 
   // This section is for words sent from the phone not images
   if(blStr[0] == '!' && blStr[1] == '~' && blStr[2] == '!' && blStr[blStr.length() -1] == '~') {
-    stringShow = blStr.substring(3,blStr.length()-1);   
+    stringWord= blStr.substring(16,blStr.length()-1);  
+    scrollSpeed = blStr.substring(3,7).toInt();
+    red = blStr.substring(7,10).toInt();
+    green = blStr.substring(10,13).toInt();
+    blue = blStr.substring(13,16).toInt();
+    
+    
     wordSet = true;
     blStr = "";
-    wordLength = stringShow.length() * 6;
+    wordLength = stringWord.length() * 6;
     scrollX = 31;
+    matrix.setTextColor(matrix.Color(red,green,blue));
   }
 
   // This is the section for incoming images
@@ -180,7 +189,7 @@ void loop ()
     if(wordSet == true){
       matrix.setCursor(scrollX, 0);
       matrix.fillScreen(0);
-      matrix.print(stringShow);
+      matrix.print(stringWord);
       matrix.show();
       scrollX --;
       if(scrollX + wordLength == 0){

@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
         // The string to send to the LED board is now in sendWord
         // All the color values will be in colorRed, Blue and Green
         // The scroll speed is now in speedVal.
-        Log.v("TEST","!~!" + sendSpeed + "" + sendColor + "" + sendWord + "~");
         if(sendWord.length() < 1) {
             msg("Nothing entered, please enter some text first");
         } else {
