@@ -1,4 +1,4 @@
-package com.example.iain.myapplication;
+package com.example.iain.imagepixel;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.example.iain.myapplication;
+package com.example.iain.imagepixel;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -34,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
 import java.io.IOException;
 import java.util.Set;
@@ -69,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private ColorPicker cp;
 
     int colorRed, colorBlue, colorGreen;
+    String sendColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         colorRed = 192;
         colorGreen = 255;
         colorBlue = 58;
+        sendColor = "192255058";
     }
 
     public Bitmap pixelate(){
@@ -177,9 +178,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendImage() {
-        Handler h = new Handler();
-        final Handler handler = new Handler();
-
         if(btSocket != null && pixeled == true) {
             try {
                 btSocket.getOutputStream().write("!!!".toString().getBytes());
@@ -232,9 +230,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendWord(){
         WordFragment fragment = (WordFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-        int speedVal = fragment.seekVal;
-        Log.v("TEST", "" + speedVal);
-        msg("sendWord");
+        String sendSpeed = fragment.speedSend;
+        String sendWord = fragment.getWord();
+        // The string to send to the LED board is now in sendWord
+        // All the color values will be in colorRed, Blue and Green
+        // The scroll speed is now in speedVal.
+        Log.v("TEST","!~!" + sendSpeed + "" + sendColor + "" + sendWord + "~");
+        if(sendWord.length() < 1) {
+            msg("Nothing entered, please enter some text first");
+        } else {
+            if(btSocket != null) {
+                try {
+                    btSocket.getOutputStream().write("!~!".getBytes());
+                    btSocket.getOutputStream().write(sendSpeed.getBytes());
+                    btSocket.getOutputStream().write(sendColor.getBytes());
+                    btSocket.getOutputStream().write(sendWord.getBytes());
+                    try {Thread.sleep(25); }catch (InterruptedException e) {msg("Error");
+                    }
+                    btSocket.getOutputStream().write("~".getBytes());
+                } catch (IOException e) {
+                    msg("Error");
+                }
+            }
+            // Send string to arduino
+        }
     }
 
     public void updateColor() {
@@ -248,6 +267,28 @@ public class MainActivity extends AppCompatActivity {
                 colorRed = cp.getRed();
                 colorGreen = cp.getGreen();
                 colorBlue = cp.getBlue();
+                // Compile a sendString of the colors rrrgggbbb always 9 digits long
+                if (colorRed < 10) {
+                    sendColor = "00" + colorRed;
+                } else if (colorRed < 100) {
+                    sendColor = "0" + colorRed;
+                } else {
+                    sendColor = "" + colorRed;
+                }
+                if (colorGreen < 10) {
+                    sendColor += "00" + colorGreen;
+                } else if (colorGreen < 100) {
+                    sendColor += "0" + colorGreen;
+                } else {
+                    sendColor += "" + colorGreen;
+                }
+                if(colorBlue < 10) {
+                    sendColor += "00" + colorBlue;
+                } else if (colorBlue < 100) {
+                    sendColor += "0" + colorBlue;
+                } else {
+                    sendColor += "" + colorBlue;
+                }
 
                 WordFragment fragment = (WordFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
                 fragment.updateTextColor(cp.getColor());
